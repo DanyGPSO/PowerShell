@@ -1,7 +1,7 @@
 # Ajouter une APP Windows : Exemple la Visioneuse de Photos
 Get-AppxPackage -allusers Microsoft.Windows.Photos | Foreach {Add-AppxPackage -DisableDevelopmentMode -Register "$($_.InstallLocation)\AppXManifest.xml"}
 
-# VÈrifier les packages Windows APPS
+# V√©rifier les packages Windows APPS
 Get-AppxPackage -allusers | Select Name, PackageFullName
 
 # Importer une photo d'un utilisateur AD
@@ -14,16 +14,19 @@ get-ADUser si
 PS $user = Get-ADUser NomUtilisateur -Properties thumbnailPhoto
 PS $user.thumbnailPhoto | Set-Content photo.jpg -Encoding byte
 
-# Exporter les utilisateurs prÈsent dans un groupe AD
-Get-ADGroupMember -identity ìName of Groupî -recursive | select name | Export-csv -path C:\Output\Groupmembers.csv -NoTypeInformation
+# Exporter les utilisateurs pr√©sent dans un groupe AD
+Get-ADGroupMember -identity ‚ÄúName of Group‚Äù -recursive | select name | Export-csv -path C:\Output\Groupmembers.csv -NoTypeInformation
 
 # Exporter des informations de tous les utilisateurs AD dans un fichier CSV
 Get-ADUser -Filter * -Properties Title,Department,LastLogonDate,whenCreated,Enabled |
 Select SamAccountName,Title,Department,LastLogonDate,whenCreated,Enabled |
-Export-Csv "C:\SIGPSO\ADusers2.csv" ñNoTypeInformation
+Export-Csv "C:\SIGPSO\ADusers2.csv" ‚ÄìNoTypeInformation
 
-# Regarder le Quota utilisÈ dans une boite de messagerie Exchange
+# Regarder le Quota utilis√© dans une boite de messagerie Exchange
 Get-MailboxStatistics "Nom Utilisateur" | Format-List StorageLimitStatus,TotalItemSize,TotalDeletedItemSize,ItemCount,DeletedItemCount
 
 # Ajouter un Message d'Absence sur une boite de messagerie Exchange
-Set-MailboxAutoReplyConfiguration cdani -AutoReplyState enabled -ExternalAudience all -InternalMessage "Bonjour je suis absente jusquíau 24 ao˚t. En cas de nÈcessitÈ, veuillez contacter M. GERIN Alexandre : alexandre.gerin@seineouest.fr / 01.46.29.29.55" -ExternalMessage "Bonjour je suis absente jusquíau 24 ao˚t. En cas de nÈcessitÈ, veuillez contacter M. GERIN Alexandre : alexandre.gerin@seineouest.fr / 01.46.29.29.55"
+Set-MailboxAutoReplyConfiguration cdani -AutoReplyState enabled -ExternalAudience all -InternalMessage "Bonjour je suis absente jusqu‚Äôau 24 ao√ªt. En cas de n√©cessit√©, veuillez contacter M. GERIN Alexandre : alexandre.gerin@seineouest.fr / 01.46.29.29.55" -ExternalMessage "Bonjour je suis absente jusqu‚Äôau 24 ao√ªt. En cas de n√©cessit√©, veuillez contacter M. GERIN Alexandre : alexandre.gerin@seineouest.fr / 01.46.29.29.55"
+
+# Exporter tous les boite aux lettres avec le quota
+Get-Mailbox -ResultSize Unlimited | Get-MailboxStatistics | Select DisplayName,TotalItemSize,TotalDeletedItemSize,ItemCount,DeletedItemCount | Export-CSV "C:\MAll Mailboxes.csv" -NoTypeInforma
