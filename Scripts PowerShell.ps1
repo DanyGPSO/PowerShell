@@ -30,3 +30,6 @@ Set-MailboxAutoReplyConfiguration cdani -AutoReplyState enabled -ExternalAudienc
 
 # Exporter tous les boite aux lettres avec le quota
 Get-Mailbox -ResultSize Unlimited | Get-MailboxStatistics | Select DisplayName,TotalItemSize,TotalDeletedItemSize,ItemCount,DeletedItemCount | Export-CSV "C:\MAll Mailboxes.csv" -NoTypeInforma
+
+# Lister les utilisateurs dans une base de données exchange
+get-mailbox -database BALs_Utilisateurs-VIP
