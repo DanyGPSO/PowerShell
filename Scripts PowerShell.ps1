@@ -33,3 +33,4 @@ Get-Mailbox -ResultSize Unlimited | Get-MailboxStatistics | Select DisplayName,T
 
 # Lister les utilisateurs dans une base de données exchange
 get-mailbox -database BALs_Utilisateurs-VIP
+suivante Get-mailbox |Get-MailboxStatistics| select DisplayName,Database
